@@ -1,8 +1,20 @@
+/*
+William Gadd
+Kenice Washington
+Ben Tingley
 
+Title: Cheese Chasers
+
+Date Completed:
+
+Creative tilt: Handcrafted sprites create an atmosphere that evokes
+some of the real life thrill of the chase.
+
+*/
 let config = {
     type: Phaser.CANVAS,
     width: 640,
-    height: 480,
+    height: 960,
     //scene: 
   }
 
