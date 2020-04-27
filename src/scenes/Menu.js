@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image('title', './assets/title.png');
+        this.load.image('sky', './assets/skybackground.png');
 
     }
 
@@ -29,17 +30,24 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
-        //title
+        //assets
+        this.add.image(centerX, centerY, 'sky');
         this.add.image(centerX, centerY - textSpacer*2, 'title');
 
         //start button, instructions
         this.add.text(centerX, centerY, ' Press \'UP\' to Start ', menuConfig).setOrigin(0.5);
         this.add.text(centerX, centerY + textSpacer, ' READ THIS: ', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + textSpacer+30, ' Use the arrow Keys to Control your cheese chaser and doge obsticals. ', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY + textSpacer+60, ' Based on a real sport! ', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + textSpacer+30, ' Use the arrow keys to control your cheese chaser and dodge obsticals. ', menuConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY + textSpacer+65, ' Based on a real sport! ', menuConfig).setOrigin(0.5);
+
+        //define keys
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
     }
 
     update() {
+        if (Phaser.Input.Keyboard.JustDown(keyUP)) {
+            this.scene.start("playScene");
+        }
 
     }
 }
