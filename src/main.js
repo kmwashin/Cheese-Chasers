@@ -13,8 +13,8 @@ some of the real life thrill of the chase.
 */
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
-    height: 960,
+    width: 960,
+    height: 640,
     //scene: 
   }
 
