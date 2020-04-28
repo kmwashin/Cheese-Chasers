@@ -33,26 +33,29 @@ class Play extends Phaser.Scene {
         this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
         this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
         this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 565, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
+        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 590, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
 
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+        
 
     }
 
     update() {
 
         // check key input for restart
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyUP)) {
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             //might help with score later?
             //this.scene.restart(this.p1Score);
             this.scene.restart();
         }
 
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyDOWN)) {
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyM)) {
             this.scene.start("menuScene");
         }
 
@@ -111,7 +114,7 @@ class Play extends Phaser.Scene {
         let centerY = game.config.height/2;
         this.add.image(centerX, centerY, 'over');
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, 'UP to Restart or DOWN for Menu', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'R to Restart or M for Menu', gameoverConfig).setOrigin(0.5);
     }
 
     checkCollision(player, runner) {

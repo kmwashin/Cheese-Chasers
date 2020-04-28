@@ -25,7 +25,7 @@ class Runner extends Phaser.GameObjects.Sprite {
     }
 
     //reset on right side of screen with new, randomized position
-    //the four heights:320, 400, 480, 560
+    //the four heights:320, 400, 480, 585
     reset() {
 
         //0-3
@@ -48,7 +48,7 @@ class Runner extends Phaser.GameObjects.Sprite {
 
         if(this.height == 3)
         {
-            this.y = 560;
+            this.y = 590;
         }
 
         this.x = 960;

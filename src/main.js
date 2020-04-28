@@ -30,4 +30,4 @@ game.settings = {
 }
 
 // reserve keyboard vars
-let keyDOWN, keyUP, keyLEFT, keyRIGHT;
+let keyDOWN, keyUP, keyLEFT, keyRIGHT, keyR, keyM;
