@@ -33,7 +33,7 @@ class Play extends Phaser.Scene {
         this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
         this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
         this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 560, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
+        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 565, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
 
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
