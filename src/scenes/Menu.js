@@ -6,7 +6,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image('title', './assets/title.png');
-        this.load.image('sky', './assets/skybackground.png');
+        this.load.image('menusky', './assets/skybackground.png');
 
     }
 
@@ -31,7 +31,7 @@ class Menu extends Phaser.Scene {
         let textSpacer = 64;
 
         //assets
-        this.add.image(centerX, centerY, 'sky');
+        this.add.image(centerX, centerY, 'menusky');
         this.add.image(centerX, centerY - textSpacer*2, 'title');
 
         //start button, instructions
