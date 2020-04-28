@@ -25,7 +25,7 @@ let game = new Phaser.Game(config);
 
 // define game settings
 game.settings = {
-  runnerSpeed: 4
+  runnerSpeed: 5
   
 }
 
