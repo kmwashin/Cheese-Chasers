@@ -15,11 +15,16 @@ class Play extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
+        this.gameOver = false;
+
         //background
         this.add.image(centerX, centerY, 'playsky');
+
+        //player
+        this.p1= new Player(this, centerX, centerY, 'player').setScale(1.5, 1.5).setOrigin(0, 0);
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
@@ -27,5 +32,9 @@ class Play extends Phaser.Scene {
 
     update() {
         
+        if(!this.gameover)
+        {
+            this.p1.update();
+        }
     }
 }
