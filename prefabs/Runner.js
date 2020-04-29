@@ -13,20 +13,20 @@ class Runner extends Phaser.GameObjects.Sprite {
 
     }
 
-    update() {
+    update(score) {
         this.x -= game.settings.runnerSpeed;
 
         //reset ship to right side when left side is hit
         if(this.x <= 0-this.width)
           {
-            this.reset();
+            this.reset(score);
           }
 
     }
 
     //reset on right side of screen with new, randomized position
-    //the four heights:320, 400, 480, 560
-    reset() {
+    //the four heights:320, 400, 480, 585
+    reset(score) {
 
         //0-3
         this.height = getRandomInt(4);
@@ -48,10 +48,13 @@ class Runner extends Phaser.GameObjects.Sprite {
 
         if(this.height == 3)
         {
-            this.y = 560;
+            this.y = 590;
         }
 
         this.x = 960;
+
+        game.settings.peoplePassed++;
+        score.text = "People who've passed you: " + game.settings.peoplePassed;
 
     }
 }
