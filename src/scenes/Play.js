@@ -14,6 +14,8 @@ class Play extends Phaser.Scene {
 
     create() {
         
+        game.settings.peoplePassed = 0;
+        
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
 
@@ -23,17 +25,17 @@ class Play extends Phaser.Scene {
         this.add.image(centerX, centerY, 'playsky');
 
         //player
-        this.p1= new Player(this, centerX/2, centerY+60, 'player').setScale(1.5, 1.5).setOrigin(0, 0);
+        this.p1= new Player(this, centerX/2, centerY+60, 'player').setOrigin(0, 0);
 
         //runner x3. base-> initial x axis spawn, spacer-> hoisontal distance between
         let runnerbase = 2000;
         let runnerspacer = 150;
-        this.run1 = new Runner(this, runnerbase, 320, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
-        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 590, 'runner').setScale(1.5, 1.5).setOrigin(0, 0);
+        this.run1 = new Runner(this, runnerbase, 320, 'runner').setOrigin(0, 0);
+        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runner').setOrigin(0, 0);
+        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setOrigin(0, 0);
+        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runner').setOrigin(0, 0);
+        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runner').setOrigin(0, 0);
+        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 590, 'runner').setOrigin(0, 0);
 
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -42,12 +44,31 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        
+
+        //animations
+
+        //score display
+        let scoreConfig = {
+            fontFamily: 'Roboto Condensed',
+            fontSize: '28px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+
+        this.score = this.add.text(69, 54, "People who've passed you: " + game.settings.peoplePassed, scoreConfig);
 
     }
 
     update() {
 
+        
+        
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             //might help with score later?
@@ -59,15 +80,15 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
 
-        if(!this.gameover)
+        if(!this.gameOver)
         {
             this.p1.update();
-            this.run1.update();
-            this.run2.update();
-            this.run3.update();
-            this.run4.update();
-            this.run5.update();
-            this.run6.update();
+            this.run1.update(this.score);
+            this.run2.update(this.score);
+            this.run3.update(this.score);
+            this.run4.update(this.score);
+            this.run5.update(this.score);
+            this.run6.update(this.score);
         }
 
         //check collisions
@@ -110,20 +131,22 @@ class Play extends Phaser.Scene {
 
         this.gameOver = true;
 
+
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
         this.add.image(centerX, centerY, 'over');
-        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, 'R to Restart or M for Menu', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese.", gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 128, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
     }
 
     checkCollision(player, runner) {
-        // simple AABB checking thanks nathan 
+        // simple AABB checking
         if (player.x < runner.x + runner.width && 
             player.x + player.width > runner.x && 
             player.y < runner.y + runner.height &&
             player.height + player.y > runner. y) {
-            return true;
+                return true;
         } else {
             return false;
         }

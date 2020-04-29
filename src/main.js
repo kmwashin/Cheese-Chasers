@@ -25,8 +25,8 @@ let game = new Phaser.Game(config);
 
 // define game settings
 game.settings = {
-  runnerSpeed: 5
-  
+  runnerSpeed: 5,
+  peoplePassed: 0
 }
 
 // reserve keyboard vars
