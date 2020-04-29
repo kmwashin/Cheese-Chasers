@@ -13,7 +13,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     update() {
 
-        let speed = 6;
+        let speed = 4;
 
         //left and right movement
         if(keyLEFT.isDown && this.x >= 0)
