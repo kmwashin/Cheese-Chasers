@@ -30,6 +30,8 @@ class Play extends Phaser.Scene {
         //runner x3. base-> initial x axis spawn, spacer-> hoisontal distance between
         let runnerbase = 2000;
         let runnerspacer = 150;
+        
+        
         this.run1 = new Runner(this, runnerbase, 320, 'runner').setOrigin(0, 0);
         this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runner').setOrigin(0, 0);
         this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setOrigin(0, 0);
@@ -136,16 +138,19 @@ class Play extends Phaser.Scene {
         let centerY = game.config.height/2;
         this.add.image(centerX, centerY, 'over');
         this.add.text(game.config.width/2, game.config.height/2, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese.", gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese. ", gameoverConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 + 128, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
     }
 
     checkCollision(player, runner) {
+        //runner width and height being set to 0 on reset? hard code quick fix.
+        this.width = 48;
+        this.height = 48;
         // simple AABB checking
-        if (player.x < runner.x + runner.width && 
+        if (player.x < runner.x + this.width && 
             player.x + player.width > runner.x && 
-            player.y < runner.y + runner.height &&
-            player.height + player.y > runner. y) {
+            player.y < runner.y + this.height &&
+            player.height + player.y > runner.y) {
                 return true;
         } else {
             return false;
