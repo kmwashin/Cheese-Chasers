@@ -15,9 +15,19 @@ class Play extends Phaser.Scene {
         this.load.audio('dash','./assets/dash.mp3');
         this.load.audio('die','./assets/explosion38.wav');
 
+        //texture atlas's
+        this.load.atlas('runnerA', './assets/runnerA.png', './assets/runnerA.json');
+        this.load.atlas('playerA', './assets/playerA.png', './assets/playerA.json');
+
+        //tilesprite scrolling bois
+        this.load.image('grass1', './assets/grasslayer1.png')
+        this.load.image('grass2', './assets/grasslayer2.png')
+        this.load.image('grass3', './assets/grasslayer3.png')
+
     }
 
     create() {
+
 
         //loops background music until player restarts
         this.bgm = this.sound.add('background', {
@@ -27,6 +37,22 @@ class Play extends Phaser.Scene {
             loop:true
         });
         this.bgm.play();
+
+        //animations
+        this.anims.create({ 
+            key: 'tumble', 
+            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
+            framerate: 60,
+            repeat: -1 
+        });
+
+        this.anims.create({ 
+            key: 'run', 
+            frames: this.anims.generateFrameNames('playerA', {prefix: 'playerA', start: 0, end: 3, suffix: '', zeroPad: 4 }),
+            framerate: 5,
+            repeat: -1 
+        });
+      
         
         game.settings.peoplePassed = 0;
         
@@ -39,20 +65,26 @@ class Play extends Phaser.Scene {
         //background
         this.add.image(centerX, centerY, 'playsky');
 
+        //placing scrolling tile sprites
+        this.grass1 = this.add.tileSprite(0, 0, 960, 640, 'grass1').setOrigin(0, 0);
+        this.grass2 = this.add.tileSprite(0, 0, 960, 640, 'grass2').setOrigin(0, 0);
+        this.grass3 = this.add.tileSprite(0, 0, 960, 640, 'grass3').setOrigin(0, 0);
+
         //player
-        this.p1= new Player(this, centerX/2, centerY+60, 'player').setOrigin(0, 0);
+        this.p1= new Player(this, centerX/2, centerY+60, 'playerA').setOrigin(0, 0).play('run');
 
         //runner x3. base-> initial x axis spawn, spacer-> hoisontal distance between
         let runnerbase = 2000;
         let runnerspacer = 150;
         
         
-        this.run1 = new Runner(this, runnerbase, 320, 'runner').setOrigin(0, 0);
-        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runner').setOrigin(0, 0);
-        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runner').setOrigin(0, 0);
-        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runner').setOrigin(0, 0);
-        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runner').setOrigin(0, 0);
-        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 590, 'runner').setOrigin(0, 0);
+        this.run1 = new Runner(this, runnerbase, 320, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 560, 'runnerA').setOrigin(0, 0).play('tumble');
+
 
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -114,6 +146,11 @@ class Play extends Phaser.Scene {
             this.bgm.stop();
         }
 
+        //tilesprite movement
+        this.grass1.tilePositionX += 2;
+        this.grass2.tilePositionX += 4;
+        this.grass3.tilePositionX += 6;
+
         if(!this.gameOver)
         {
             this.p1.update();
@@ -169,9 +206,9 @@ class Play extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
         this.add.image(centerX, centerY, 'over');
-        this.add.text(game.config.width/2, game.config.height/2, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese. ", gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 128, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - 64, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese. ", gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
     }
 
     checkCollision(player, runner) {
