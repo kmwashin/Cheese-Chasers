@@ -10,21 +10,35 @@ class Play extends Phaser.Scene {
         this.load.image('over', './assets/gameoverscreen.png');
         this.load.image('playsky', './assets/playskybackground.png');
 
-        //texture atlas
+        //texture atlas's
         this.load.atlas('runnerA', './assets/runnerA.png', './assets/runnerA.json');
+        this.load.atlas('playerA', './assets/playerA.png', './assets/playerA.json');
+
+        //tilesprite scrolling bois
+        this.load.image('grass1', './assets/grasslayer1.png')
+        this.load.image('grass2', './assets/grasslayer2.png')
+        this.load.image('grass3', './assets/grasslayer3.png')
 
     }
 
     create() {
 
         //animations
-         this.anims.create({ 
-             key: 'tumble', 
-             frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-             framerate: 60,
-             repeat: -1 
-         });
+        this.anims.create({ 
+            key: 'tumble', 
+            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
+            framerate: 60,
+            repeat: -1 
+        });
 
+        this.anims.create({ 
+            key: 'run', 
+            frames: this.anims.generateFrameNames('playerA', {prefix: 'playerA', start: 0, end: 3, suffix: '', zeroPad: 4 }),
+            framerate: 5,
+            repeat: -1 
+        });
+
+        
         
         game.settings.peoplePassed = 0;
         
@@ -36,8 +50,13 @@ class Play extends Phaser.Scene {
         //background
         this.add.image(centerX, centerY, 'playsky');
 
+        //placing scrolling tile sprites
+        this.grass1 = this.add.tileSprite(0, 0, 960, 640, 'grass1').setOrigin(0, 0);
+        this.grass2 = this.add.tileSprite(0, 0, 960, 640, 'grass2').setOrigin(0, 0);
+        this.grass3 = this.add.tileSprite(0, 0, 960, 640, 'grass3').setOrigin(0, 0);
+
         //player
-        this.p1= new Player(this, centerX/2, centerY+60, 'player').setOrigin(0, 0);
+        this.p1= new Player(this, centerX/2, centerY+60, 'playerA').setOrigin(0, 0).play('run');
 
         //runner x3. base-> initial x axis spawn, spacer-> hoisontal distance between
         let runnerbase = 2000;
@@ -94,6 +113,11 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyM)) {
             this.scene.start("menuScene");
         }
+
+        //tilesprite movement
+        this.grass1.tilePositionX += 2;
+        this.grass2.tilePositionX += 4;
+        this.grass3.tilePositionX += 6;
 
         if(!this.gameOver)
         {
