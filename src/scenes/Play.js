@@ -187,9 +187,9 @@ class Play extends Phaser.Scene {
         let centerX = game.config.width/2;
         let centerY = game.config.height/2;
         this.add.image(centerX, centerY, 'over');
-        this.add.text(game.config.width/2, game.config.height/2, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 64, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese. ", gameoverConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 + 128, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - 64, ' GAME OVER ', gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, ' You were passed by ' + game.settings.peoplePassed +" people before succumbing to the cheese. ", gameoverConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, ' R to Restart or M for Menu ', gameoverConfig).setOrigin(0.5);
     }
 
     checkCollision(player, runner) {
