@@ -19,46 +19,12 @@ class Play extends Phaser.Scene {
 
         //animations
          this.anims.create({ 
-             key: 'tumble1', 
+             key: 'tumble', 
              frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
              framerate: 60,
              repeat: -1 
          });
 
-         this.anims.create({ 
-            key: 'tumble2', 
-            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-            framerate: 60,
-            repeat: -1 
-        });
-
-        this.anims.create({ 
-            key: 'tumble3', 
-            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-            framerate: 60,
-            repeat: -1 
-        });
-
-        this.anims.create({ 
-            key: 'tumble4', 
-            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-            framerate: 60,
-            repeat: -1 
-        });
-
-        this.anims.create({ 
-            key: 'tumble5', 
-            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-            framerate: 60,
-            repeat: -1 
-        });
-
-        this.anims.create({ 
-            key: 'tumble6', 
-            frames: this.anims.generateFrameNames('runnerA', {prefix: 'runnerA', start: 0, end: 11, suffix: '', zeroPad: 4 }),
-            framerate: 60,
-            repeat: -1 
-        });
         
         game.settings.peoplePassed = 0;
         
@@ -78,16 +44,13 @@ class Play extends Phaser.Scene {
         let runnerspacer = 150;
         
         
-        this.run1 = new Runner(this, runnerbase, 320, 'runnerA').setOrigin(0, 0).play('tumble1');
-        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runnerA').setOrigin(0, 0).play('tumble2');
-        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runnerA').setOrigin(0, 0).play('tumble3');
-        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runnerA').setOrigin(0, 0).play('tumble4');
-        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runnerA').setOrigin(0, 0).play('tumble5');
-        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 560, 'runnerA').setOrigin(0, 0).play('tumble6');
+        this.run1 = new Runner(this, runnerbase, 320, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run2 = new Runner(this, runnerbase-runnerspacer, 400, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run3 = new Runner(this, runnerbase-runnerspacer*2, 320, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run4 = new Runner(this, runnerbase-runnerspacer*3, 400, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run5 = new Runner(this, runnerbase-runnerspacer*4, 480, 'runnerA').setOrigin(0, 0).play('tumble');
+        this.run6 = new Runner(this, runnerbase-runnerspacer*5, 560, 'runnerA').setOrigin(0, 0).play('tumble');
 
-        // //playing animations
-        // this.run1.anims.add('tumble', Phaser.Animation.generateFrameNames('runner', 0, 12), 5, true);
-        // this.run1.play('tumble');
 
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
